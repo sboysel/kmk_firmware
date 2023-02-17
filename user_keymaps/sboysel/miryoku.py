@@ -1,5 +1,3 @@
-import board
-
 from kb import KMKKeyboard; keyboard = KMKKeyboard()
 from kmk.keys import KC
 from kmk.modules.layers import Layers; keyboard.modules.append(Layers())
@@ -86,10 +84,9 @@ KC.APP, KC.SPC, KC.TAB, KC.NO, KC.NO, KC.NO
 ]
 
 layer_names_list = [
-    'Base', 'Extra', 'Tap', 'Button', 'Nav', 'Mouse', 'Media', 'Num', 'Sym', 'Fun',
+"Base", "Extra", "Tap", "Button", "Nav", "Mouse", "Media", "Num", "Sym", "Fun",
 ]
 
 if __name__ == '__main__':
-    print('board: CrowBoard')
-    print('keymap: Miryoku KMK')
-    keyboard.go()
+     print('starting Miryoku KMK')
+     keyboard.go()
