@@ -9,10 +9,41 @@ from kmk.modules.power import Power; keyboard.modules.append(Power())
 from kmk.modules.tapdance import TapDance; keyboard.modules.append(TapDance())
 from kmk.extensions.media_keys import MediaKeys; keyboard.extensions.append(MediaKeys())
 from kmk.modules.capsword import CapsWord; keyboard.modules.append(CapsWord())
+from kmk.modules.encoder import EncoderHandler
+from kmk.modules.split import Split, SplitType, SplitSide
 
+# === split -------------------------------------------------------------------
+split = Split(
+    split_flip=True,  # If both halves are the same, but flipped, set this True
+    split_side=SplitSide.RIGHT,  # Sets if this is to SplitSide.LEFT or SplitSide.RIGHT, or use EE hands
+    split_type=SplitType.UART,  # Defaults to UART
+    split_target_left=True,  # Assumes that left will be the one on USB. Set to False if it will be the right
+    uart_interval=20,  # Sets the uarts delay. Lower numbers draw more power
+    data_pin=board.RX,  # The primary data pin to talk to the secondary device with
+    data_pin2=board.TX,  # Second uart pin to allow 2 way communication
+    uart_flip=True,  # Reverses the RX and TX pins if both are provided
+    use_pio=True,  # Use RP2040 PIO implementation of UART. Required if you want to use other pins than RX/TX
+)
+keyboard.modules.append(split)
+
+# === encoders ----------------------------------------------------------------
+encoder_handler = EncoderHandler()
+encoder_handler.pins = (
+    (board.D8, board.D9, None, False),
+    (board.MOSI, board.D10, None, False),
+)
+encoder_handler.map = (
+    ((KC.VOLD, KC.VOLU),(KC.VOLD, KC.VOLU)),  # 
+    ((KC.VOLD, KC.VOLU),(KC.VOLD, KC.VOLU)),  # 
+    ((KC.VOLD, KC.VOLU),(KC.VOLD, KC.VOLU)),  # 
+    ((KC.VOLD, KC.VOLU),(KC.VOLD, KC.VOLU)),  # 
+    ((KC.VOLD, KC.VOLU),(KC.VOLD, KC.VOLU)),  # 
+    ((KC.VOLD, KC.VOLU),(KC.VOLD, KC.VOLU)),  # 
+)
+keyboard.modules.append(encoder_handler)
 
 # === layer tap ---------------------------------------------------------------
-keyboard.tap_time = 200
+tap_time = 200
 # NAV (layer 1)
 LT_TAB = KC.LT(1, KC.TAB, prefer_hold=True, tap_interrupted=False, tap_time=keyboard.tap_time)
 LT_SPC = KC.LT(1, KC.SPC, prefer_hold=True, tap_interrupted=False, tap_time=keyboard.tap_time)
@@ -43,7 +74,7 @@ keyboard.keymap = [
         KC.Q,    KC.W,    KC.E,    KC.R,    KC.T,       KC.Y,   KC.U,    KC.I,    KC.O,    KC.P,
         MT_A,    MT_S,    MT_D,    MT_F,    KC.G,       KC.H,   MT_J,    MT_K,    MT_L,    MT_QUOT,
         KC.Z,    KC.X,    KC.C,    KC.V,    KC.B,       KC.N,   KC.M,    KC.COMM, KC.DOT,  KC.SLSH,
-        KC.NO,   KC.NO,   LT_ESC,  LT_SPC,  LT_TAB,     LT_ENT, LT_BSPC, LT_DEL,  KC.NO,   KC.NO
+        KC.NO,   KC.MUTE,   LT_ESC,  LT_SPC,  LT_TAB,     LT_ENT, LT_BSPC, LT_DEL,  KC.NO,   KC.NO
     ],                  
     #                     MEDIA             NAV         NUM     SYM      FUN
     # NAV
@@ -81,6 +112,10 @@ keyboard.keymap = [
         KC.NO,   KC.RALT, KC.NO,   KC.NO,   KC.NO,      KC.HID,    KC.NO,   KC.NO,   KC.NO,   KC.NO,
         KC.NO,   KC.NO,   KC.NO,   KC.NO,   KC.NO,      KC.MSTP,   KC.MPLY, KC.MUTE, KC.NO,   KC.NO
     ],
+]
+
+layer_names_list = [
+    'QWERTY', 'NAV', 'NUM', 'SYM', 'FUN', 'MEDIA',
 ]
 
 if __name__ == '__main__':

@@ -46,25 +46,26 @@ rgb = RGB(
 keyboard.extensions.append(rgb)
 
 # === layer tap ---------------------------------------------------------------
-# NAV (layer 1)
-LT_TAB = KC.LT(1, KC.TAB, prefer_hold=True, tap_interrupted=False, tap_time=200)
-# NUM (layer 2)
-LT_BSPC = KC.LT(2, KC.BSPC, prefer_hold=True, tap_interrupted=False, tap_time=200)
+keyboard.tap_time = 200
+# FUN (layer 1)
+LT_SPC = KC.LT(1, KC.SPC, prefer_hold=True, tap_interrupted=False, tap_time=keyboard.tap_time)
+# NAV (layer 2)
+LT_TAB = KC.LT(2, KC.TAB, prefer_hold=True, tap_interrupted=False, tap_time=keyboard.tap_time)
 # SYM (layer 3)
-LT_ENT = KC.LT(3, KC.ENT, prefer_hold=True, tap_interrupted=False, tap_time=200)
-# SYM (layer 4)
-LT_SPC = KC.LT(4, KC.SPC, prefer_hold=True, tap_interrupted=False, tap_time=200)
+LT_ENT = KC.LT(3, KC.ENT, prefer_hold=True, tap_interrupted=False, tap_time=keyboard.tap_time)
+# NUM (layer 4)
+LT_BSPC = KC.LT(4, KC.BSPC, prefer_hold=True, tap_interrupted=False, tap_time=keyboard.tap_time)
 
 # === home row mods ------------------------------------------------------------
-MT_A = KC.MT(KC.A, KC.LGUI, prefer_hold=False, tap_interrupted=True, tap_time=200)
-MT_S = KC.MT(KC.S, KC.LALT, prefer_hold=False, tap_interrupted=True, tap_time=200)
-MT_D = KC.MT(KC.D, KC.LCTL, prefer_hold=False, tap_interrupted=True, tap_time=200)
-MT_F = KC.MT(KC.F, KC.LSFT, prefer_hold=False, tap_interrupted=True, tap_time=200)
+MT_A = KC.MT(KC.A, KC.LGUI, prefer_hold=False, tap_interrupted=True, tap_time=keyboard.tap_time)
+MT_S = KC.MT(KC.S, KC.LALT, prefer_hold=False, tap_interrupted=True, tap_time=keyboard.tap_time)
+MT_D = KC.MT(KC.D, KC.LCTL, prefer_hold=False, tap_interrupted=True, tap_time=keyboard.tap_time)
+MT_F = KC.MT(KC.F, KC.LSFT, prefer_hold=False, tap_interrupted=True, tap_time=keyboard.tap_time)
 
-MT_J = KC.MT(KC.J, KC.LSFT, prefer_hold=False, tap_interrupted=True, tap_time=200)
-MT_K = KC.MT(KC.K, KC.LCTL, prefer_hold=False, tap_interrupted=True, tap_time=200)
-MT_L = KC.MT(KC.L, KC.LALT, prefer_hold=False, tap_interrupted=True, tap_time=200)
-MT_QUOT = KC.MT(KC.QUOT, KC.LGUI, prefer_hold=False, tap_interrupted=True, tap_time=200)
+MT_J = KC.MT(KC.J, KC.LSFT, prefer_hold=False, tap_interrupted=True, tap_time=keyboard.tap_time)
+MT_K = KC.MT(KC.K, KC.LCTL, prefer_hold=False, tap_interrupted=True, tap_time=keyboard.tap_time)
+MT_L = KC.MT(KC.L, KC.LALT, prefer_hold=False, tap_interrupted=True, tap_time=keyboard.tap_time)
+MT_QUOT = KC.MT(KC.QUOT, KC.LGUI, prefer_hold=False, tap_interrupted=True, tap_time=keyboard.tap_time)
 
 # === keymap -------------------------------------------------------------------
 keyboard.keymap = [
@@ -77,6 +78,14 @@ keyboard.keymap = [
         KC.NO,   KC.NO,   KC.NO,   LT_SPC,  LT_TAB,  KC.NO,       KC.NO,  LT_ENT,  LT_BSPC, KC.NO,   KC.NO,   KC.NO  
     ],                  
     #                              FUN      NAV                      SYM     NUM
+    # FUN
+    [
+        KC.MUTE, KC.VOLD, KC.VOLU, KC.NO,   KC.NO,   KC.NO,       KC.NO,  KC.PSCR, KC.F1,   KC.F4,   KC.F7,   KC.F10,
+        KC.LGUI, KC.LALT, KC.LCTL, KC.LSFT, KC.CAPS, KC.NO,       KC.NO,  KC.INS,  KC.F2,   KC.F5,   KC.F8,   KC.F11,
+        KC.MPRV, KC.MSTP, KC.MPLY, KC.MNXT, KC.NO,   KC.NO,       KC.NO,  KC.NO,   KC.F3,   KC.F6,   KC.F9,   KC.F12,
+        KC.NO,   KC.NO,   KC.NO,   KC.NO,   KC.NO,   KC.NO,       KC.NO,  KC.NO,   KC.NO,   KC.NO,   KC.NO,   KC.NO,
+        KC.NO,   KC.NO,   KC.NO,   KC.NO,   KC.NO,   KC.NO,       KC.NO,  KC.ESC,  KC.DEL,  KC.NO,   KC.NO,   KC.NO
+    ],
     # NAV
     [
         KC.NO,   KC.NO,   KC.NO,   KC.NO,   KC.NO,   KC.NO,       KC.NO,  KC.NO,   KC.NO,   KC.NO,   KC.NO,   KC.NO,
@@ -84,14 +93,6 @@ keyboard.keymap = [
         KC.NO,   KC.RALT, KC.NO,   KC.NO,   KC.NO,   KC.NO,       KC.NO,  KC.INS,  KC.HOME, KC.PGDN, KC.PGUP, KC.END,
         KC.NO,   KC.NO,   KC.NO,   KC.NO,   KC.NO,   KC.NO,       KC.NO,  KC.NO,   KC.NO,   KC.NO,   KC.NO,   KC.NO,
         KC.NO,   KC.NO,   KC.NO,   KC.NO,   KC.NO,   KC.NO,       KC.NO,  KC.ENT,  KC.BSPC, KC.NO,   KC.NO,   KC.NO
-    ],
-    # NUM
-    [
-        KC.LBRC, KC.N7,   KC.N8,   KC.N9,   KC.RBRC, KC.NO,       KC.NO,  KC.NO,   KC.NO,   KC.NO,   KC.NO,   KC.NO,
-        KC.SCLN, KC.N4,   KC.N5,   KC.N6,   KC.EQL,  KC.NO,       KC.NO,  KC.NO,   KC.LSFT, KC.LCTL, KC.LALT, KC.LGUI,
-        KC.GRV,  KC.N1,   KC.N2,   KC.N3,   KC.BSLS, KC.NO,       KC.NO,  KC.NO,   KC.NO,   KC.NO,   KC.RALT, KC.NO,
-        KC.NO,   KC.NO,   KC.NO,   KC.NO,   KC.NO,   KC.NO,       KC.NO,  KC.NO,   KC.NO,   KC.NO,   KC.NO,   KC.NO,
-        KC.NO,   KC.NO,   KC.NO,   KC.N0,   KC.MINS, KC.NO,       KC.NO,  KC.NO,   KC.NO,   KC.NO,   KC.NO,   KC.NO
     ],
     # SYM
     [
@@ -101,18 +102,14 @@ keyboard.keymap = [
         KC.NO,   KC.NO,   KC.NO,   KC.NO,   KC.NO,   KC.NO,       KC.NO,  KC.NO,   KC.NO,   KC.NO,   KC.NO,   KC.NO,
         KC.NO,   KC.NO,   KC.NO,   KC.RPRN, KC.UNDS, KC.NO,       KC.NO,  KC.NO,   KC.NO,   KC.NO,   KC.NO,   KC.NO
     ],
-    # FUN
+    # NUM
     [
-        KC.MUTE, KC.VOLD, KC.VOLU, KC.NO,   KC.NO,   KC.NO,       KC.NO,  KC.PSCR, KC.F1,   KC.F4,   KC.F7,   KC.F10,
-        KC.LGUI, KC.LALT, KC.LCTL, KC.LSFT, KC.CAPS, KC.NO,       KC.NO,  KC.INS,  KC.F2,   KC.F5,   KC.F8,   KC.F11,
-        KC.MPRV, KC.MSTP, KC.MPLY, KC.MNXT, KC.NO,   KC.NO,       KC.NO,  KC.NO,   KC.F3,   KC.F6,   KC.F9,   KC.F12,
+        KC.LBRC, KC.N7,   KC.N8,   KC.N9,   KC.RBRC, KC.NO,       KC.NO,  KC.NO,   KC.NO,   KC.NO,   KC.NO,   KC.NO,
+        KC.SCLN, KC.N4,   KC.N5,   KC.N6,   KC.EQL,  KC.NO,       KC.NO,  KC.NO,   KC.LSFT, KC.LCTL, KC.LALT, KC.LGUI,
+        KC.GRV,  KC.N1,   KC.N2,   KC.N3,   KC.BSLS, KC.NO,       KC.NO,  KC.NO,   KC.NO,   KC.NO,   KC.RALT, KC.NO,
         KC.NO,   KC.NO,   KC.NO,   KC.NO,   KC.NO,   KC.NO,       KC.NO,  KC.NO,   KC.NO,   KC.NO,   KC.NO,   KC.NO,
-        KC.NO,   KC.NO,   KC.NO,   KC.NO,   KC.NO,   KC.NO,       KC.NO,  KC.ESC,  KC.DEL,  KC.NO,   KC.NO,   KC.NO
+        KC.NO,   KC.NO,   KC.NO,   KC.N0,   KC.MINS, KC.NO,       KC.NO,  KC.NO,   KC.NO,   KC.NO,   KC.NO,   KC.NO
     ],
-]
-
-layer_names_list = [
-    'QWERTY', 'NAV', 'NUM', 'SYM', 'FUN'
 ]
 
 if __name__ == '__main__':
