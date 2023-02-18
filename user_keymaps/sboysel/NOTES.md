@@ -47,11 +47,11 @@ cp boards/crowboard/kb.py /run/media/sam/CIRCUITPY
 Copy keymap
 
 ```
-cp user_keymaps/sboysel/crowboard.py /run/media/sam/CIRCUITPY
+cp user_keymaps/sboysel/crowboard.py /run/media/sam/CIRCUITPY/code.py
 ```
 
 Edit keymap
 
 ```
-nvim /run/media/sam/CIRCUITPY
+nvim /run/media/sam/CIRCUITPY/code.py
 ```
