@@ -1,3 +1,5 @@
+import board
+
 from kb import KMKKeyboard; keyboard = KMKKeyboard()
 from kmk.keys import KC
 from kmk.modules.layers import Layers; keyboard.modules.append(Layers())
