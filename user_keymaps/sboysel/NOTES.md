@@ -41,17 +41,22 @@ cp boot.py /run/media/sam/CIRCUITPY
 Copy board definition
 
 ```
-cp boards/crowboard/kb.py /run/media/sam/CIRCUITPY
+cp boards/crowboard/kb.py /run/media/sam/CIRCUITPY/kb.py
 ```
 
 Copy keymap
 
 ```
-cp user_keymaps/sboysel/crowboard.py /run/media/sam/CIRCUITPY/code.py
+cp user_keymaps/sboysel/36.py /run/media/sam/CIRCUITPY/code.py
 ```
 
-Edit keymap
+Edit keymap as needed
 
 ```
 nvim /run/media/sam/CIRCUITPY/code.py
 ```
+
+# keymaps
+
+- `36.py`: a stripped down version of Miryoku tailored to my needs. Can be 
+  adapted to a 4x10 grid.
