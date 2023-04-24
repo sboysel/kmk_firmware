@@ -10,29 +10,31 @@ from kmk.modules.tapdance import TapDance; keyboard.modules.append(TapDance())
 from kmk.extensions.media_keys import MediaKeys; keyboard.extensions.append(MediaKeys())
 from kmk.modules.capsword import CapsWord; keyboard.modules.append(CapsWord())
 
+tap_time = 200
+
 # === layer tap ---------------------------------------------------------------
 # NAV (layer 1)
-LT_TAB = KC.LT(1, KC.TAB, prefer_hold=True, tap_interrupted=False, tap_time=200)
-LT_SPC = KC.LT(1, KC.SPC, prefer_hold=True, tap_interrupted=False, tap_time=200)
+LT_TAB = KC.LT(1, KC.TAB, prefer_hold=True, tap_interrupted=False, tap_time=tap_time)
+LT_SPC = KC.LT(1, KC.SPC, prefer_hold=True, tap_interrupted=False, tap_time=tap_time)
 # NUM (layer 2)
-LT_BSPC = KC.LT(2, KC.BSPC, prefer_hold=True, tap_interrupted=False, tap_time=200)
+LT_BSPC = KC.LT(2, KC.BSPC, prefer_hold=True, tap_interrupted=False, tap_time=tap_time)
 # SYM (layer 3)
-LT_ENT = KC.LT(3, KC.ENT, prefer_hold=True, tap_interrupted=False, tap_time=200)
+LT_ENT = KC.LT(3, KC.ENT, prefer_hold=True, tap_interrupted=False, tap_time=tap_time)
 # FUN (layer 4)
-LT_DEL = KC.LT(4, KC.DEL, prefer_hold=True, tap_interrupted=False, tap_time=200)
+LT_DEL = KC.LT(4, KC.DEL, prefer_hold=True, tap_interrupted=False, tap_time=tap_time)
 # MEDIA (layer 5)
-LT_ESC = KC.LT(5, KC.ESC, prefer_hold=True, tap_interrupted=False, tap_time=200)
+LT_ESC = KC.LT(5, KC.ESC, prefer_hold=True, tap_interrupted=False, tap_time=tap_time)
 
 # === home row mods ------------------------------------------------------------
-MT_A = KC.MT(KC.A, KC.LGUI, prefer_hold=False, tap_interrupted=True, tap_time=200)
-MT_S = KC.MT(KC.S, KC.LALT, prefer_hold=False, tap_interrupted=True, tap_time=200)
-MT_D = KC.MT(KC.D, KC.LCTL, prefer_hold=False, tap_interrupted=True, tap_time=200)
-MT_F = KC.MT(KC.F, KC.LSFT, prefer_hold=False, tap_interrupted=True, tap_time=200)
+MT_A = KC.MT(KC.A, KC.LGUI, prefer_hold=False, tap_interrupted=True, tap_time=tap_time)
+MT_S = KC.MT(KC.S, KC.LALT, prefer_hold=False, tap_interrupted=True, tap_time=tap_time)
+MT_D = KC.MT(KC.D, KC.LCTL, prefer_hold=False, tap_interrupted=True, tap_time=tap_time)
+MT_F = KC.MT(KC.F, KC.LSFT, prefer_hold=False, tap_interrupted=True, tap_time=tap_time)
 
-MT_J = KC.MT(KC.J, KC.LSFT, prefer_hold=False, tap_interrupted=True, tap_time=200)
-MT_K = KC.MT(KC.K, KC.LCTL, prefer_hold=False, tap_interrupted=True, tap_time=200)
-MT_L = KC.MT(KC.L, KC.LALT, prefer_hold=False, tap_interrupted=True, tap_time=200)
-MT_QUOT = KC.MT(KC.QUOT, KC.LGUI, prefer_hold=False, tap_interrupted=True, tap_time=200)
+MT_J = KC.MT(KC.J, KC.LSFT, prefer_hold=False, tap_interrupted=True, tap_time=tap_time)
+MT_K = KC.MT(KC.K, KC.LCTL, prefer_hold=False, tap_interrupted=True, tap_time=tap_time)
+MT_L = KC.MT(KC.L, KC.LALT, prefer_hold=False, tap_interrupted=True, tap_time=tap_time)
+MT_QUOT = KC.MT(KC.QUOT, KC.LGUI, prefer_hold=False, tap_interrupted=True, tap_time=tap_time)
 
 # === keymap -------------------------------------------------------------------
 keyboard.keymap = [
