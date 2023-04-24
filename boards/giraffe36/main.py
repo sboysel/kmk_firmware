@@ -13,6 +13,8 @@ from kmk.modules.tapdance import TapDance; keyboard.modules.append(TapDance())
 from kmk.extensions.media_keys import MediaKeys; keyboard.extensions.append(MediaKeys())
 from kmk.modules.capsword import CapsWord; keyboard.modules.append(CapsWord())
 
+keyboard.tap_time = 100
+
 split_side = SplitSide.RIGHT if isRight else SplitSide.LEFT
 
 split = Split(
