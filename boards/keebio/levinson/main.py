@@ -1,133 +1,102 @@
-from kb import KMKKeyboard
-
-from kmk.extensions.rgb import RGB
-from kmk.keys import KC
-from kmk.modules.layers import Layers
-from kmk.modules.split import Split, SplitSide, SplitType
-
+from kb import KMKKeyboard, isRight
 keyboard = KMKKeyboard()
 
-rgb_ext = RGB(pixel_pin=keyboard.rgb_pixel_pin, num_pixels=keyboard.rgb_num_pixels)
-layers_ext = Layers()
-# TODO Comment one of these on each side
-split_side = SplitSide.LEFT
-split_side = SplitSide.RIGHT
-split = Split(split_type=SplitType.BLE, split_side=split_side)
+from kmk.keys import KC
+from kmk.modules.split import Split, SplitSide, SplitType
+from kmk.modules.layers import Layers; keyboard.modules.append(Layers())
+from kmk.modules.modtap import ModTap; keyboard.modules.append(ModTap())
+from kmk.modules.mouse_keys import MouseKeys; keyboard.modules.append(MouseKeys())
+from kmk.modules.power import Power; keyboard.modules.append(Power())
+from kmk.modules.tapdance import TapDance; keyboard.modules.append(TapDance())
+from kmk.extensions.media_keys import MediaKeys; keyboard.extensions.append(MediaKeys())
+from kmk.modules.capsword import CapsWord; keyboard.modules.append(CapsWord())
 
-keyboard.extensions = [rgb_ext]
-keyboard.modules = [layers_ext, split]
+split_side = SplitSide.RIGHT if isRight else SplitSide.LEFT
 
-_______ = KC.TRNS
-XXXXXXX = KC.NO
+split = Split(
+    split_flip=False,
+    split_side=None,
+    split_type=SplitType.UART,
+    data_pin=keyboard.data_pin,
+    use_pio=True,
+)
+keyboard.modules.append(split)
 
-LOWER = KC.MO(3)
-RAISE = KC.MO(4)
-ADJUST = KC.MO(5)
+# === layer tap ---------------------------------------------------------------
+# NAV (layer 1)
+LT_TAB = KC.LT(1, KC.TAB, prefer_hold=True, tap_interrupted=False, tap_time=200)
+LT_SPC = KC.LT(1, KC.SPC, prefer_hold=True, tap_interrupted=False, tap_time=200)
+# NUM (layer 2)
+LT_BSPC = KC.LT(2, KC.BSPC, prefer_hold=True, tap_interrupted=False, tap_time=200)
+# SYM (layer 3)
+LT_ENT = KC.LT(3, KC.ENT, prefer_hold=True, tap_interrupted=False, tap_time=200)
+# FUN (layer 4)
+LT_DEL = KC.LT(4, KC.DEL, prefer_hold=True, tap_interrupted=False, tap_time=200)
+# MEDIA (layer 5)
+LT_ESC = KC.LT(5, KC.ESC, prefer_hold=True, tap_interrupted=False, tap_time=200)
 
+# === home row mods ------------------------------------------------------------
+MT_A = KC.MT(KC.A, KC.LGUI, prefer_hold=False, tap_interrupted=True, tap_time=200)
+MT_S = KC.MT(KC.S, KC.LALT, prefer_hold=False, tap_interrupted=True, tap_time=200)
+MT_D = KC.MT(KC.D, KC.LCTL, prefer_hold=False, tap_interrupted=True, tap_time=200)
+MT_F = KC.MT(KC.F, KC.LSFT, prefer_hold=False, tap_interrupted=True, tap_time=200)
+
+MT_J = KC.MT(KC.J, KC.LSFT, prefer_hold=False, tap_interrupted=True, tap_time=200)
+MT_K = KC.MT(KC.K, KC.LCTL, prefer_hold=False, tap_interrupted=True, tap_time=200)
+MT_L = KC.MT(KC.L, KC.LALT, prefer_hold=False, tap_interrupted=True, tap_time=200)
+MT_QUOT = KC.MT(KC.QUOT, KC.LGUI, prefer_hold=False, tap_interrupted=True, tap_time=200)
+
+# === keymap -------------------------------------------------------------------
 keyboard.keymap = [
-    # Qwerty
-    # ,-----------------------------------------------------------------------------------.
-    # | Tab  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bak  |
-    # |------+------+------+------+------+-------------+------+------+------+------+------|
-    # | Esc  |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |  "   |
-    # |------+------+------+------+------+------|------+------+------+------+------+------|
-    # | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Enter |
-    # |------+------+------+------+------+------+------+------+------+------+------+------|
-    # |Adjust| Ctrl | Alt  | GUI  |Lower |Space |Space |Raise | Left | Down |  Up  |Right |
-    # `-----------------------------------------------------------------------------------'
+    # QWERTY
     [
-        KC.TAB,  KC.Q,    KC.W,    KC.E,    KC.R,    KC.T,    KC.Y,    KC.U,    KC.I,    KC.O,    KC.P,    KC.BSPC,
-        KC.GESC, KC.A,    KC.S,    KC.D,    KC.F,    KC.G,    KC.H,    KC.J,    KC.K,    KC.L,    KC.SCLN, KC.QUOT,
-        KC.LSFT, KC.Z,    KC.X,    KC.C,    KC.V,    KC.B,    KC.N,    KC.M,    KC.COMM, KC.DOT,  KC.SLSH, KC.ENT,
-        ADJUST,  KC.LCTL, KC.LALT, KC.LGUI, LOWER,   KC.SPC,  KC.SPC,  RAISE,   KC.LEFT, KC.DOWN, KC.UP,   KC.RGHT,
-    ],
-
-    # Colemak
-    # ,-----------------------------------------------------------------------------------.
-    # | Tab  |   Q  |   W  |   F  |   P  |   G  |   J  |   L  |   U  |   Y  |   ;  | Bak  |
-    # |------+------+------+------+------+-------------+------+------+------+------+------|
-    # | Esc  |   A  |   R  |   S  |   T  |   D  |   H  |   N  |   E  |   I  |   O  |  "   |
-    # |------+------+------+------+------+------|------+------+------+------+------+------|
-    # | Shift|   Z  |   X  |   C  |   V  |   B  |   K  |   M  |   ,  |   .  |   /  |Enter |
-    # |------+------+------+------+------+------+------+------+------+------+------+------|
-    # |Adjust| Ctrl | Alt  | GUI  |Lower |Space |Space |Raise | Left | Down |  Up  |Right |
-    # `-----------------------------------------------------------------------------------'
+        KC.Q,    KC.W,    KC.E,    KC.R,    KC.T,       KC.NO,  KC.NO,  KC.Y,    KC.U,    KC.I,    KC.O,    KC.P,
+        MT_A,    MT_S,    MT_D,    MT_F,    KC.G,       KC.NO,  KC.NO,  KC.H,    MT_J,    MT_K,    MT_L,    MT_QUOT,
+        KC.Z,    KC.X,    KC.C,    KC.V,    KC.B,       KC.NO,  KC.NO,  KC.N,    KC.M,    KC.COMM, KC.DOT,  KC.SLSH,
+        KC.NO,   KC.NO,   KC.NO,   LT_ESC,  LT_SPC,     LT_TAB, LT_ENT, LT_BSPC, LT_DEL,  KC.NO,   KC.NO,   KC.NO  
+    ],                  
+    #                     MEDIA             NAV         NUM     SYM      FUN
+    # NAV
     [
-        KC.TAB,  KC.Q,    KC.W,    KC.F,    KC.P,    KC.G,    KC.J,    KC.L,    KC.U,    KC.Y,    KC.SCLN, KC.BSPC,
-        KC.GESC, KC.A,    KC.R,    KC.S,    KC.T,    KC.D,    KC.H,    KC.N,    KC.E,    KC.I,    KC.O,    KC.QUOT,
-        KC.LSFT, KC.Z,    KC.X,    KC.C,    KC.V,    KC.B,    KC.K,    KC.M,    KC.COMM, KC.DOT,  KC.SLSH, KC.ENT,
-        ADJUST,  KC.LCTL, KC.LALT, KC.LGUI, LOWER,   KC.SPC,  KC.SPC,  RAISE,   KC.LEFT, KC.DOWN, KC.UP,   KC.RGHT,
+        KC.NO,   KC.NO,   KC.NO,   KC.NO,   KC.NO,      KC.NO,  KC.NO,  KC.NO,   KC.NO,   KC.NO,   KC.NO,   KC.NO,
+        KC.LGUI, KC.LALT, KC.LCTL, KC.LSFT, KC.NO,      KC.NO,  KC.NO,  KC.NO,   KC.LEFT, KC.DOWN, KC.UP,   KC.RGHT,
+        KC.NO,   KC.RALT, KC.NO,   KC.NO,   KC.NO,      KC.NO,  KC.NO,  KC.INS,  KC.HOME, KC.PGDN, KC.PGUP, KC.END,
+        KC.NO,   KC.NO,   KC.NO,   KC.NO,   KC.NO,      KC.NO,  KC.ENT, KC.BSPC, KC.DEL,  KC.NO,   KC.NO,   KC.NO
     ],
-
-    # Dvorak
-    # ,-----------------------------------------------------------------------------------.
-    # | Tab  |   "  |   ,  |   .  |   P  |   Y  |   F  |   G  |   C  |   R  |   L  | Bak  |
-    # |------+------+------+------+------+-------------+------+------+------+------+------|
-    # | Esc  |   A  |   O  |   E  |   U  |   I  |   D  |   H  |   T  |   N  |   S  |  /   |
-    # |------+------+------+------+------+------|------+------+------+------+------+------|
-    # | Shift|   ;  |   Q  |   J  |   K  |   X  |   B  |   M  |   W  |   V  |   Z  |Enter |
-    # |------+------+------+------+------+------+------+------+------+------+------+------|
-    # |Adjust| Ctrl | Alt  | GUI  |Lower |Space |Space |Raise | Left | Down |  Up  |Right |
-    # `-----------------------------------------------------------------------------------'
+    # NUM
     [
-        KC.TAB,  KC.QUOT, KC.COMM, KC.DOT,  KC.P,    KC.Y,    KC.F,    KC.G,    KC.C,    KC.R,    KC.L,    KC.BSPC,
-        KC.GESC, KC.A,    KC.O,    KC.E,    KC.U,    KC.I,    KC.D,    KC.H,    KC.T,    KC.N,    KC.S,    KC.SLSH,
-        KC.LSFT, KC.SCLN, KC.Q,    KC.J,    KC.K,    KC.X,    KC.B,    KC.M,    KC.W,    KC.V,    KC.Z,    KC.ENT,
-        ADJUST,  KC.LCTL, KC.LALT, KC.LGUI, LOWER,   KC.SPC,  KC.SPC,  RAISE,   KC.LEFT, KC.DOWN, KC.UP,   KC.RGHT,
+        KC.LBRC, KC.N7,   KC.N8,   KC.N9,   KC.RBRC,    KC.NO,      KC.NO,  KC.NO,  KC.NO,   KC.NO,   KC.NO,   KC.NO,
+        KC.SCLN, KC.N4,   KC.N5,   KC.N6,   KC.EQL,     KC.NO,      KC.NO,  KC.NO,  KC.LSFT, KC.LCTL, KC.LALT, KC.LGUI,
+        KC.GRV,  KC.N1,   KC.N2,   KC.N3,   KC.BSLS,    KC.NO,      KC.NO,  KC.NO,  KC.NO,   KC.NO,   KC.RALT, KC.NO,
+        KC.NO,   KC.NO,   KC.NO,   KC.DOT,  KC.N0,      KC.MINS,    KC.NO,  KC.NO,  KC.NO,   KC.NO,   KC.NO,   KC.NO
     ],
-
-    # Lower
-    # ,-----------------------------------------------------------------------------------.
-    # |   ~  |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   (  |   )  | Del  |
-    # |------+------+------+------+------+-------------+------+------+------+------+------|
-    # | Del  |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |   .  |   +  |     |    \  |  |   |
-    # |------+------+------+------+------+------|------+------+------+------+------+------|
-    # |      |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |ISO ~ |ISO | |      |      |Enter |
-    # |------+------+------+------+------+------+------+------+------+------+------+------|
-    # |      |      |      |      |      |             |      | Next | Vol- | Vol+ | Play |
-    # `-----------------------------------------------------------------------------------'
+    # SYM
     [
-        KC.TILD, KC.EXLM, KC.AT,   KC.HASH, KC.DLR,  KC.PERC, KC.CIRC, KC.AMPR, KC.ASTR, KC.LPRN, KC.RPRN, KC.DEL,
-        KC.DEL,  KC.F1,   KC.F2,   KC.F3,   KC.F4,   KC.F5,   KC.F6,   KC.UNDS, KC.PLUS, KC.LCBR, KC.RCBR, KC.PIPE,
-        _______, KC.F7,   KC.F8,   KC.F9,   KC.F10,  KC.F11,  KC.F12,  KC.NUHS, KC.NUBS, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, KC.MNXT, KC.VOLD, KC.VOLU, KC.MPLY,
+        KC.LCBR, KC.AMPR, KC.ASTR, KC.LPRN, KC.RCBR,    KC.NO,   KC.NO,  KC.NO,  KC.NO,   KC.NO,   KC.NO,   KC.NO,
+        KC.COLN, KC.DLR,  KC.PERC, KC.CIRC, KC.PLUS,    KC.NO,   KC.NO,  KC.NO,  KC.LSFT, KC.LCTL, KC.LALT, KC.LGUI,
+        KC.TILD, KC.EXLM, KC.AT,   KC.HASH, KC.PIPE,    KC.NO,   KC.NO,  KC.NO,  KC.NO,   KC.NO,   KC.RALT, KC.NO,
+        KC.NO,   KC.NO,   KC.NO,   KC.LPRN, KC.RPRN,    KC.UNDS, KC.NO,  KC.NO,  KC.NO,   KC.NO,   KC.NO,   KC.NO
     ],
-
-    # Raise
-    # ,-----------------------------------------------------------------------------------.
-    # |   `  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  | Del  |
-    # |------+------+------+------+------+-------------+------+------+------+------+------|
-    # | Del  |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |   -  |   =  |   [  |   ]  |  \   |
-    # |------+------+------+------+------+------|------+------+------+------+------+------|
-    # |      |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |ISO # |ISO / |      |      |Enter |
-    # |------+------+------+------+------+------+------+------+------+------+------+------|
-    # |      |      |      |      |      |             |      | Next | Vol- | Vol+ | Play |
-    # `-----------------------------------------------------------------------------------'
+    # FUN
     [
-        KC.GRV,  KC.N1,   KC.N2,   KC.N3,   KC.N4,   KC.N5,   KC.N6,   KC.N7,   KC.N8,   KC.N9,   KC.N0,   KC.DEL,
-        KC.DEL,  KC.F1,   KC.F2,   KC.F3,   KC.F4,   KC.F5,   KC.F6,   KC.MINS, KC.EQL,  KC.LBRC, KC.RBRC, KC.BSLS,
-        _______, KC.F7,   KC.F8,   KC.F9,   KC.F10,  KC.F11,  KC.F12,  KC.NUHS, KC.NUBS, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, KC.MNXT, KC.VOLD, KC.VOLU, KC.MPLY,
+        KC.F12,  KC.F7,   KC.F8,   KC.F9,   KC.PSCR,    KC.NO,  KC.NO,  KC.NO,  KC.NO,   KC.NO,   KC.NO,   KC.NO,
+        KC.F11,  KC.F4,   KC.F5,   KC.F6,   KC.SLCK,    KC.NO,  KC.NO,  KC.NO,  KC.LSFT, KC.LCTL, KC.LALT, KC.LGUI,
+        KC.F10,  KC.F1,   KC.F2,   KC.F3,   KC.PAUS,    KC.NO,  KC.NO,  KC.NO,  KC.NO,   KC.NO,   KC.RALT, KC.NO,
+        KC.NO,   KC.NO,   KC.NO,   KC.APP,  KC.SPC,     KC.TAB, KC.NO,  KC.NO,  KC.NO,   KC.NO,   KC.NO,   KC.NO
     ],
-
-    # Adjust
-    #  ,-----------------------------------------------------------------------------------.
-    # |      | Reset|RGB Tg|RGB Md|Hue Up|Hue Dn|Sat Up|Sat Dn|Val Up|Val Dn|      |  Del |
-    # |------+------+------+------+------+-------------+------+------+------+------+------|
-    # |      |      |      |      |      |      |      |Qwerty|Colemk|Dvorak|      |      |
-    # |------+------+------+------+------+------|------+------+------+------+------+------|
-    # |      |      |      |      |      |      |      |      |      |      |      |      |
-    # |------+------+------+------+------+------+------+------+------+------+------+------|
-    # |      |      |      |      |      |             |      |      |      |      |      |
-    # `-----------------------------------------------------------------------------------'
+    # MEDIA
     [
-        _______, _______, KC.RGB.TOG, KC.RGB.MOD, KC.RGB.HUD, KC.RGB.HUI, KC.RGB.SAD, KC.RGB.SAI, KC.RGB.VAD, KC.RGB.VAI, _______, KC.DEL,
-        _______, _______, _______,    _______,    _______,    _______,    _______,    KC.DF(0),   KC.DF(1),   KC.DF(2),   _______, _______,
-        _______, _______, _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______, _______,
-        _______, _______, _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______, _______,
+        KC.NO,   KC.NO,   KC.NO,   KC.NO,   KC.NO,      KC.NO, KC.NO,   KC.NO,     KC.NO,   KC.NO,   KC.NO,   KC.NO,
+        KC.LGUI, KC.LALT, KC.LCTL, KC.LSFT, KC.NO,      KC.NO, KC.NO,   KC.PS_TOG, KC.MPRV, KC.VOLD, KC.VOLU, KC.MNXT,
+        KC.NO,   KC.RALT, KC.NO,   KC.NO,   KC.NO,      KC.NO, KC.NO,   KC.HID,    KC.NO,   KC.NO,   KC.NO,   KC.NO,
+        KC.NO,   KC.NO,   KC.NO,   KC.NO,   KC.NO,      KC.NO, KC.MSTP, KC.MPLY,   KC.MUTE, KC.NO,   KC.NO,   KC.NO
     ],
+]
 
+layer_names_list = [
+    'QWERTY', 'NAV', 'NUM', 'SYM', 'FUN', 'MEDIA',
 ]
 
 if __name__ == '__main__':
     keyboard.go()
+    print('Running!')
