@@ -27,7 +27,7 @@ keyboard.modules.append(split)
 
 rgb = RGB(
     pixel_pin=keyboard.pixel_pin,
-    num_pixels=92,
+    num_pixels=46,
     val_limit=100,
     hue_default=180,
     sat_default=100,
