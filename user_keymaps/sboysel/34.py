@@ -30,42 +30,115 @@ MT_QUOT = KC.MT(KC.QUOT, KC.LGUI, prefer_hold=False, tap_interrupted=True, tap_t
 
 # === keymap -------------------------------------------------------------------
 keyboard.keymap = [
-    # BASE (QWERTY)
+    """
+    0:BASE (QWERTY)
+
+    /-----+-----+-----+-----+-----\         /-----+-----+-----+-----+-----\       
+    |  q  |  w  |  e  |  r  |  t  |         |  y  |  u  |  i  |  o  |  p  |
+    |-----+-----+-----+-----+-----|         |-----+-----+-----+-----+-----|       
+    |  a  |  s  |  d  |  f  |  g  |         |  h  |  j  |  k  |  l  |  '  |
+    |-----+-----+-----+-----+-----|         |-----+-----+-----+-----+-----|       
+    |  z  |  x  |  c  |  v  |  b  |         |  n  |  m  |  ,  |  .  |  /  |
+    \-----+-----+-----+-----+-----/         \-----+-----+-----+-----+-----/
+
+                      /-----+-----\         /-----+-----\
+                      | TAB | SPC |         | BSPC| ENT |
+                      \-----+-----/         \-----+-----/
+    Layers:
+                       (FUN) (NAV)           (SYM) (NUM)
+    """
     [
         KC.Q,    KC.W,    KC.E,    KC.R,    KC.T,    KC.Y,    KC.U,    KC.I,    KC.O,    KC.P,
         MT_A,    MT_S,    MT_D,    MT_F,    KC.G,    KC.H,    MT_J,    MT_K,    MT_L,    MT_QUOT,
         KC.Z,    KC.X,    KC.C,    KC.V,    KC.B,    KC.N,    KC.M,    KC.COMM, KC.DOT,  KC.SLSH,
-        KC.NO,   KC.NO,   KC.NO,   LT_SPC,  LT_TAB,  LT_ENT,  LT_BSPC, KC.NO,   KC.NO,   KC.NO  
+        KC.NO,   KC.NO,   KC.NO,   LT_TAB,  LT_SPC,  LT_BSPC, LT_ENT,  KC.NO,   KC.NO,   KC.NO  
     ],                  
-    #                              FUN      NAV      SYM     NUM
-    # FUN
+    """
+    1:FUN
+
+    /-----+-----+-----+-----+-----\         /-----+-----+-----+-----+-----\       
+    | Mute| Vol-| Vol+|     |     |         |PrScr| F1  | F4  | F7  | F10 |
+    |-----+-----+-----+-----+-----|         |-----+-----+-----+-----+-----|       
+    | GUI | ALT | CTL | SFT |CpsLk|         | Ins | F2  | F5  | F8  | F11 |
+    |-----+-----+-----+-----+-----|         |-----+-----+-----+-----+-----|       
+    | Prev| Stop| Play| Next|     |         |     | F3  | F6  | F9  | F12 |
+    \-----+-----+-----+-----+-----/         \-----+-----+-----+-----+-----/
+
+                      /-----+-----\         /-----+-----\
+                      | ~*~ |     |         | DEL | ESC |
+                      \-----+-----/         \-----+-----/
+    """
     [
         KC.MUTE, KC.VOLD, KC.VOLU, KC.NO,   KC.NO,   KC.PSCR, KC.F1,   KC.F4,   KC.F7,   KC.F10,
         KC.LGUI, KC.LALT, KC.LCTL, KC.LSFT, KC.CAPS, KC.INS,  KC.F2,   KC.F5,   KC.F8,   KC.F11,
         KC.MPRV, KC.MSTP, KC.MPLY, KC.MNXT, KC.NO,   KC.NO,   KC.F3,   KC.F6,   KC.F9,   KC.F12,
-        KC.NO,   KC.NO,   KC.NO,   KC.NO,   KC.NO,   KC.ESC,  KC.DEL,  KC.NO,   KC.NO,   KC.NO
-    ],    
-    # NAV
+        KC.NO,   KC.NO,   KC.NO,   KC.NO,   KC.NO,   KC.DEL,  KC.ESC,  KC.NO,   KC.NO,   KC.NO
+    ],
+    """
+    2:NAV
+
+
+    /-----+-----+-----+-----+-----\         /-----+-----+-----+-----+-----\       
+    |     |     |     |     |     |         |     |     |     |     |     |
+    |-----+-----+-----+-----+-----|         |-----+-----+-----+-----+-----|       
+    | GUI | ALT | CTL | SFT |     |         | ESC | LEFT| DOWN|  UP |RIGHT|
+    |-----+-----+-----+-----+-----|         |-----+-----+-----+-----+-----|       
+    |     |     |     |     |     |         | INS | HOME| PGDN| PGUP| END |
+    \-----+-----+-----+-----+-----/         \-----+-----+-----+-----+-----/
+
+                      /-----+-----\         /-----+-----\
+                      |     | ~*~ |         | BSPC| ENT |
+                      \-----+-----/         \-----+-----/
+    """
     [
         KC.NO,   KC.NO,   KC.NO,   KC.NO,   KC.NO,   KC.NO,   KC.NO,   KC.NO,   KC.NO,   KC.NO,
         KC.LGUI, KC.LALT, KC.LCTL, KC.LSFT, KC.NO,   KC.ESC,  KC.LEFT, KC.DOWN, KC.UP,   KC.RGHT,
         KC.NO,   KC.RALT, KC.NO,   KC.NO,   KC.NO,   KC.INS,  KC.HOME, KC.PGDN, KC.PGUP, KC.END,
-        KC.NO,   KC.NO,   KC.NO,   KC.NO,   KC.NO,   KC.ENT,  KC.BSPC, KC.NO,   KC.NO,   KC.NO
+        KC.NO,   KC.NO,   KC.NO,   KC.NO,   KC.NO,   KC.BSPC, KC.ENT,  KC.NO,   KC.NO,   KC.NO
     ],
-    # SYM
+    """
+    3:SYM
+
+    /-----+-----+-----+-----+-----\         /-----+-----+-----+-----+-----\       
+    |  {  |  &  |  *  |  (  |  }  |         |     |     |     |     |     |
+    |-----+-----+-----+-----+-----|         |-----+-----+-----+-----+-----|       
+    |  :  |  $  |  %  |  ^  |  +  |         |     | SFT | CTL | ALT | GUI | 
+    |-----+-----+-----+-----+-----|         |-----+-----+-----+-----+-----|       
+    |  ~  |  !  |  @  |  #  |  |  |         |     |     |     |     |     |
+    \-----+-----+-----+-----+-----/         \-----+-----+-----+-----+-----/
+
+                      /-----+-----\         /-----+-----\
+                      |  )  |  _  |         | ~*~ |     |
+                      \-----+-----/         \-----+-----/
+    """
     [
         KC.LCBR, KC.AMPR, KC.ASTR, KC.LPRN, KC.RCBR, KC.NO,   KC.NO,   KC.NO,   KC.NO,   KC.NO,
         KC.COLN, KC.DLR,  KC.PERC, KC.CIRC, KC.PLUS, KC.NO,   KC.LSFT, KC.LCTL, KC.LALT, KC.LGUI,
         KC.TILD, KC.EXLM, KC.AT,   KC.HASH, KC.PIPE, KC.NO,   KC.NO,   KC.NO,   KC.RALT, KC.NO,
         KC.NO,   KC.NO,   KC.NO,   KC.RPRN, KC.UNDS, KC.NO,   KC.NO,   KC.NO,   KC.NO,   KC.NO
     ],
-    # NUM
+    """
+    4:NUM
+
+    /-----+-----+-----+-----+-----\         /-----+-----+-----+-----+-----\       
+    |  [  |  7  |  8  |  9  |  ]  |         |     |     |     |     |     |
+    |-----+-----+-----+-----+-----|         |-----+-----+-----+-----+-----|       
+    |  ;  |  4  |  5  |  6  |  =  |         |     | SFT | CTL | ALT | GUI | 
+    |-----+-----+-----+-----+-----|         |-----+-----+-----+-----+-----|       
+    |  `  |  1  |  2  |  3  |  \  |         |     |     |     |     |     |
+    \-----+-----+-----+-----+-----/         \-----+-----+-----+-----+-----/
+
+                      /-----+-----\         /-----+-----\
+                      |     |  -  |         |     | ~*~ |
+                      \-----+-----/         \-----+-----/
+    """
     [
         KC.LBRC, KC.N7,   KC.N8,   KC.N9,   KC.RBRC, KC.NO,   KC.NO,   KC.NO,   KC.NO,   KC.NO,
         KC.SCLN, KC.N4,   KC.N5,   KC.N6,   KC.EQL,  KC.NO,   KC.LSFT, KC.LCTL, KC.LALT, KC.LGUI,
         KC.GRV,  KC.N1,   KC.N2,   KC.N3,   KC.BSLS, KC.NO,   KC.NO,   KC.NO,   KC.RALT, KC.NO,
         KC.NO,   KC.NO,   KC.NO,   KC.N0,   KC.MINS, KC.NO,   KC.NO,   KC.NO,   KC.NO,   KC.NO
     ],
+
 ]
 
 if __name__ == '__main__':
