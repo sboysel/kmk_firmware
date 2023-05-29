@@ -1,0 +1,4 @@
+- https://circuitpython.org/board/waveshare_rp2040_zero/
+- `cp /path/to/circuitpython.uf2 /path/to/rp2040zero/mountpoint`
+- `sudo fatlabel /path/to/rp2040zero/device RP2040ZEROL`
+- `cp -av boot.py kmk/ boards/risha/rev1/*.py /path/to/rp2040zero/mountpoint`
