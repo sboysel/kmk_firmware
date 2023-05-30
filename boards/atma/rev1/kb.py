@@ -19,7 +19,7 @@ _KEY_CFG_LEFT = [
 
 # GPIO to key mapping, Left
 _KEY_CFG_RIGHT = [
-    board.GP13, board.GP14, board.GP3, board.GP10,  board.GP2,
+    board.GP13, board.GP14, board.GP10, board.GP3,  board.GP2,
     board.GP12, board.GP15, board.GP7,  board.GP4,  board.GP1,
     board.GP11, board.GP26, board.GP6,  board.GP5,  board.GP0,
     board.GP27, board.GP28, board.GP29
